@@ -50,9 +50,9 @@ class Movie {
     return 'https://i.stack.imgur.com/GNhxO.png';
   }
 
-  factory Movie.fromRawJson(String str) => Movie.fromJson(json.decode(str));
+  factory Movie.fromJson(String str) => Movie.fromMap(json.decode(str));
 
-  factory Movie.fromJson(Map<String, dynamic> json) => Movie(
+  factory Movie.fromMap(Map<String, dynamic> json) => Movie(
     adult: json["adult"],
     backdropPath: json["backdrop_path"],
     genreIds: List<int>.from(json["genre_ids"].map((x) => x)),

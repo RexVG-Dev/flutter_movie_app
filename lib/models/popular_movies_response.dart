@@ -15,11 +15,11 @@ class PopularMoviesResponse {
     required this.totalResults,
   });
 
-  factory PopularMoviesResponse.fromRawJson(String str) => PopularMoviesResponse.fromJson(json.decode(str));
+  factory PopularMoviesResponse.fromJson(String str) => PopularMoviesResponse.fromMap(json.decode(str));
 
-  factory PopularMoviesResponse.fromJson(Map<String, dynamic> json) => PopularMoviesResponse(
+  factory PopularMoviesResponse.fromMap(Map<String, dynamic> json) => PopularMoviesResponse(
     page: json["page"],
-    results: List<Movie>.from(json["results"].map((x) => Movie.fromJson(x))),
+    results: List<Movie>.from(json["results"].map((x) => Movie.fromMap(x))),
     totalPages: json["total_pages"],
     totalResults: json["total_results"],
   );
