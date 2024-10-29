@@ -22,14 +22,15 @@ class DetailsScreen extends StatelessWidget {
             delegate: SliverChildListDelegate([
               _PosterAndTitle(movie),
 
-              // add genres
+              // TODO: integrate the genres tags
 
               const SizedBox(height: 5),
 
               _OverView(movie.overview),
               const SizedBox(height: 5),
 
-              CastingList(movieId: movie.id,),
+              CardList(movieId: movie.id, titleList: 'Casting',),
+              // CardList(movieId: movie.id, titleList: 'Productoras',),
 
               // add slider for production_companies by details endpoint
             ])

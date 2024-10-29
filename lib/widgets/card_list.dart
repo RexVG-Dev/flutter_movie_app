@@ -3,22 +3,26 @@ import 'package:movie_app/models/_models.dart';
 import 'package:movie_app/providers/movies.provider.dart';
 import 'package:provider/provider.dart';
 
-class CastingList extends StatelessWidget {
+class CardList extends StatelessWidget {
 
+  final String titleList;
   final int movieId;
    
-  const CastingList({
-    Key? key, required this.movieId
+  const CardList({
+    Key? key,
+    required this.movieId,
+    required this.titleList,
   }) : super(key: key);
   
   @override
   Widget build(BuildContext context) {
 
     final moviesProvider = Provider.of<MoviesProvider>(context, listen: false);
+    final TextTheme textTheme = Theme.of(context).textTheme;
 
     return FutureBuilder(
       future: moviesProvider.getCredits(movieId),
-      builder: ( _, AsyncSnapshot<List<Cast>> snapshot) {
+      builder: ( context, AsyncSnapshot<List<Cast>> snapshot) {
 
         if (!snapshot.hasData) {
           return const SizedBox(
@@ -35,11 +39,31 @@ class CastingList extends StatelessWidget {
         return Container(
           margin: const EdgeInsets.only( bottom: 30),
           width: double.infinity,
-          height: 200,
-          child: ListView.builder(
-            itemCount: cast.length,
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (_, index) => _CastCard(cast[index])
+          height: 220,
+          child: Column(
+            children: [
+
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                width: double.infinity,
+                child: Text(
+                  titleList,
+                  textAlign: TextAlign.left,
+                  style: textTheme.titleLarge,
+                
+                ),
+              ),
+
+              const SizedBox(height: 5),
+              
+               Expanded(
+                 child: ListView.builder(
+                  itemCount: cast.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (_, index) => _CastCard(cast[index])
+                ),
+               ),
+            ],
           ),
         );
       }

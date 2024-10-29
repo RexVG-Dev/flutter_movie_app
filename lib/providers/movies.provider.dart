@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:movie_app/helpers/debouncer.dart';
 import 'package:movie_app/models/_models.dart';
+import 'package:movie_app/models/details_movie_response.dart';
 
 class MoviesProvider extends ChangeNotifier {
 
@@ -97,5 +98,12 @@ class MoviesProvider extends ChangeNotifier {
     });
 
     Future.delayed(const Duration(milliseconds: 301)).then((_) => timer.cancel());
+  }
+
+  Future<DetailsMoviesResponse> getDetailsMovies(int movieId) async {
+    final reponse = await _getJsonData('/3/movie/$movieId');
+    final detailsMoviesResponse = DetailsMoviesResponse.fromJson(reponse);
+
+    return detailsMoviesResponse;
   }
 }
